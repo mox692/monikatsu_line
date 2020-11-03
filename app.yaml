@@ -1,0 +1,2 @@
+service: linebot
+runtime: go113
