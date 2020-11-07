@@ -1,0 +1,6 @@
+github.com/line/line-bot-sdk-go v1.3.0 h1:bYwGgbUrYbvTEJ8oOT18rmkclJOCB1RtLwYVZ97ello=
+github.com/line/line-bot-sdk-go v7.6.0+incompatible h1:Nc6hiry9gAaWJ28VAmH5b/mNqAr2l9leHXTVGmn4jHQ=
+github.com/line/line-bot-sdk-go v7.6.0+incompatible/go.mod h1:0RjLjJEAU/3GIcHkC3av6O4jInAbt25nnZVmOFUgDBg=
+github.com/mox692/monikatsu_line v0.0.0-20201023084650-4608e85d232d h1:O2xqMmsFSgHaHqdNCEz8SMBN96sDde4e5wRsw9FY2iY=
+golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 h1:go1bK/D/BFZV2I8cIQd1NKEZ+0owSTG1fDTci4IqFcE=
+golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
