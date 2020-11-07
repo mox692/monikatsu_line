@@ -1,8 +1,12 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
+	"os"
+	"os/signal"
+	"time"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -36,7 +40,21 @@ func main() {
 		}
 	})
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	s := http.Server{Addr: ":8080"}
+
+	go func() {
+		if err := s.ListenAndServe(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
+	log.Printf("SIGNAL %d received, then shutting down...", <-quit)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	if err := s.Shutdown(ctx); err != nil {
 		log.Fatal(err)
 	}
 }
