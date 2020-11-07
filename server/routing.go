@@ -27,6 +27,15 @@ type LineConn struct {
 	events []*linebot.Event
 }
 
+// SessionCode はsession codeを管理します。
+type SessionCode string
+
+var (
+	DefaultState           SessionCode = "0"
+	MonikatsuFlag          SessionCode = "2.1"
+	MonikatsuSetWakeupTime SessionCode = "2.2"
+)
+
 func Serve() {
 	http.HandleFunc("/callback", JudgeEvent)
 }
