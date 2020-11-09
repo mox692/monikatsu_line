@@ -1,4 +1,4 @@
-package session_client
+package sessionClient
 
 import (
 	"monikatsuline/server"
