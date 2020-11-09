@@ -7,6 +7,7 @@ import (
 	"regexp"
 
 	"monikatsuline/constant"
+	"monikatsuline/sessionClient"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 	"golang.org/x/xerrors"
@@ -20,7 +21,8 @@ type AppErr struct {
 	err    error
 }
 
-// bot, _ := linebot.New(channel_secret, channel_token)
+// LineConn はMessagingAPIとの接続を管理する構造体です。
+// MessagingAPIのイベントオブジェクトとClient構造体をラップしています。
 type LineConn struct {
 	bot    *linebot.Client
 	event  *linebot.Event
@@ -75,60 +77,67 @@ func JudgeEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 // judgeContextは、テキストメッセージを送ってきたuserが会話の途中かどうかを判別します。
-func (c *LineConn) judgeContext(message *linebot.TextMessage) {
+func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 
 	// kvsマイクロサービスにアクセスし、セッションを確認
-	status := getContext(c.event.Source.UserID)
+	status, err := sessionClient.GetContext(c.event.Source.UserID)
+	if err != nil {
+		return xerrors.Errorf("sessionClient.GetContext err : %w", err)
+	}
 
 	// status毎に、その後の処理を切り分け
-	switch status[:0] {
+	switch status.GetStatusCode[:0] {
 	// default
-	case "0":
+	default:
 		c.defaultContact(message)
 	// 登録
 	case "1":
 
 	// モニカツ登録
 	case "2":
-		switch status[1:2] {
+		switch status.GetStatusCode[1:2] {
 		case "1":
 			c.setWakeupTime(message)
 		case "2":
 		}
-
 	}
-
+	return nil
 }
 
 // context statusが0の際の処理
-func (c *LineConn) defaultContact(message *linebot.TextMessage) {
+func (c *LineConn) defaultContact(message *linebot.TextMessage) error {
 
 	// コメントの解析からの,
 	switch message.Text {
 	case "モニカツ", "monikatsu", "もにかつ":
-		c.resisterMonikatsu(message)
+		err := c.resisterMonikatsu(message)
+		if err != nil {
+			return err
+		}
 	default:
 		// ヘルプを表示。
 		c.helpMessage()
 	}
 
 	// リプライの分岐
-
+	return nil
 }
 
 // セッションにuseridを登録して、モニカツ予約フラグを立てる。
-func (c *LineConn) resisterMonikatsu(message *linebot.TextMessage) {
+func (c *LineConn) resisterMonikatsu(message *linebot.TextMessage) error {
 	// kvsマイクロサービスにセッションをinsert
 	err := setContext(c.event.Source.UserID, "2.1")
 	if err != nil {
-		log.Print(err)
+		return err
 	}
 
 	resp := linebot.NewTextMessage(constant.MONIKATSU_RESISTER)
 	_, err = c.bot.ReplyMessage(c.event.ReplyToken, resp).Do()
 	if err != nil {
-		log.Print(err)
+		return err
 	}
+
+	return nil
 }
 
 func (c *LineConn) helpMessage() {
@@ -170,7 +179,8 @@ func (c *LineConn) setWakeupTime(message *linebot.TextMessage) {
 }
 
 // デモ関数。実際はここはgRPCのメソッドに挿しかわる。
-func getContext(userid string) string {
+func GetContext(userid string) string {
+
 	return ""
 }
 
