@@ -1,4 +1,4 @@
-package database
+package repository
 
 type LineUser struct {
 	ID        string

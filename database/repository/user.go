@@ -1,4 +1,4 @@
-package database
+package repository
 
 type User struct {
 	ID           string
@@ -7,6 +7,10 @@ type User struct {
 	UserPassword string
 }
 
-func (u *User) SelectByID(userID string) *User {
+func SelectByID(userID string) *User {
 	return &User{}
+}
+
+func SelectByUserName(userName string) (*User, error) {
+	return &User{}, nil
 }

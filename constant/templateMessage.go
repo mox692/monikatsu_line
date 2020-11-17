@@ -8,7 +8,9 @@ import (
 var (
 	HelpMessage = ""
 
-	RESISTER_INIT = `了解！appで登録した名前を入力してくれ！`
+	RESISTER_INIT              = `了解！appで登録した名前を入力してくれ！`
+	RESISTER_USERNAME_NOTFOUND = `そのusernameは見つからないな。。`
+	RESISTER_ASK_PASSWORD      = `そのusernameは見つからないな。。`
 
 	MONIKATSU_RESISTER = `明日の予約な！了解明日は何時に起きるんだ??
 	「7:30」「0:00」「13:15」みたいな形で入力してくれ」

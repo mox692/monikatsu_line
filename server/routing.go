@@ -95,7 +95,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		r := new(resister)
 		switch status.GetStatusCode[1:2] {
 		case "1":
-			r.askAppName()
+			r.askAppName(message)
 		case "2":
 			r.askPassword()
 		}
