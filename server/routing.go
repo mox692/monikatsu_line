@@ -110,13 +110,19 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 	return nil
 }
 
-// context statusが0の際の処理
+// context statusが0の際の処理。
+// フック単語がuserから発された場合、各botイベントのinit処理が呼ばれます。
 func (c *LineConn) defaultContact(message *linebot.TextMessage) error {
 
 	// コメントの解析からの,
 	switch message.Text {
 	case "モニカツ", "monikatsu", "もにかつ":
-		err := c.resisterMonikatsu(message)
+		err := c.initMonikatsu()
+		if err != nil {
+			return err
+		}
+	case "とうろく":
+		err := c.initResister()
 		if err != nil {
 			return err
 		}
@@ -130,7 +136,7 @@ func (c *LineConn) defaultContact(message *linebot.TextMessage) error {
 }
 
 // セッションにuseridを登録して、モニカツ予約フラグを立てる。
-func (c *LineConn) resisterMonikatsu(message *linebot.TextMessage) error {
+func (c *LineConn) initMonikatsu() error {
 	// kvsマイクロサービスにセッションをinsert
 	err := setContext(c.event.Source.UserID, "2.1")
 	if err != nil {
@@ -142,7 +148,6 @@ func (c *LineConn) resisterMonikatsu(message *linebot.TextMessage) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -152,6 +157,19 @@ func (c *LineConn) helpMessage() {
 	if err != nil {
 		log.Print(err)
 	}
+}
+
+func (c *LineConn) initResister() error {
+	err := setContext(c.event.Source.UserID, "1.1")
+	if err != nil {
+		return err
+	}
+	resp := linebot.NewTextMessage(constant.RESISTER_INIT)
+	_, err = c.bot.ReplyMessage(c.event.ReplyToken, resp).Do()
+	if err != nil {
+		log.Print(err)
+	}
+	return nil
 }
 
 /* monikatu関連 */
