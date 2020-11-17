@@ -92,7 +92,13 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		c.defaultContact(message)
 	// 登録
 	case "1":
-
+		r := new(resister)
+		switch status.GetStatusCode[1:2] {
+		case "1":
+			r.askAppName()
+		case "2":
+			r.askPassword()
+		}
 	// モニカツ登録
 	case "2":
 		switch status.GetStatusCode[1:2] {
