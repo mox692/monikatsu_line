@@ -16,10 +16,17 @@ type resister struct {
 // userが投げたapnameがdb内に存在するかを
 func (r *resister) askAppName(message *linebot.TextMessage) error {
 
-	_, err := repository.SelectByUserName(message.Text)
+	_, err := repository.SelectUserByUserName(message.Text)
 
 	if err == sql.ErrNoRows {
 		err = r.resisterReply(constant.RESISTER_USERNAME_NOTFOUND)
+		if err != nil {
+			return err
+		}
+		err = setContext(r.LineConn.event.Source.UserID, "0.0")
+		if err != nil {
+			return err
+		}
 	}
 	if err != nil {
 		return err
@@ -38,7 +45,37 @@ func (r *resister) askAppName(message *linebot.TextMessage) error {
 }
 
 // password認証。認証されたらLineUserをinsert
-func (r *resister) askPassword() error {
+func (r *resister) askPassword(message *linebot.TextMessage) error {
+	_, err := repository.SelectUserByPassword(message.Text)
+
+	if err == sql.ErrNoRows {
+		err = r.resisterReply(constant.RESISTER_PASSWORD_NOTFOUND)
+		if err != nil {
+			return err
+		}
+		err = setContext(r.LineConn.event.Source.UserID, "0.0")
+		if err != nil {
+			return err
+		}
+	}
+	if err != nil {
+		return err
+	}
+
+	err = setContext(r.LineConn.event.Source.UserID, "0.0")
+	if err != nil {
+		return err
+	}
+
+	err = r.insertLineUser()
+	if err != nil {
+		return err
+	}
+
+	r.resisterReply(constant.RESISTER_OK)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -48,5 +85,9 @@ func (r *resister) resisterReply(text string) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (r *resister) insertLineUser() error {
 	return nil
 }

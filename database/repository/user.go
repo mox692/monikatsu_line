@@ -7,10 +7,14 @@ type User struct {
 	UserPassword string
 }
 
-func SelectByID(userID string) *User {
+func SelectUserByID(userID string) *User {
 	return &User{}
 }
 
-func SelectByUserName(userName string) (*User, error) {
+func SelectUserByUserName(userName string) (*User, error) {
+	return &User{}, nil
+}
+
+func SelectUserByPassword(pass string) (*User, error) {
 	return &User{}, nil
 }
