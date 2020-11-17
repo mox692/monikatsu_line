@@ -1,16 +1,15 @@
 package sessionClient
 
 import (
-	"monikatsuline/server"
 	"testing"
 )
 
 func Test_SetContext(t *testing.T) {
 
-	cases := map[string]server.SessionCode{
-		"etw":  server.MonikatsuFlag,
-		"teqw": server.MonikatsuSetWakeupTime,
-		"fds":  server.DefaultState,
+	cases := map[string]string{
+		"etw":  "2.1",
+		"teqw": "2.2",
+		"fds":  "0",
 	}
 
 	for key, value := range cases {
