@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"monikatsuline/config"
+	"monikatsuline/database"
 	"monikatsuline/server"
 	"net/http"
 	"os"
@@ -21,6 +22,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// dbとの接続
+	database.SetupDB()
 
 	http.HandleFunc("/callback", server.JudgeEvent)
 
