@@ -3,7 +3,10 @@ package main
 import (
 	"context"
 	"log"
+	"monikatsuline/config"
+	"monikatsuline/database"
 	"monikatsuline/server"
+	"monikatsuline/test"
 	"net/http"
 	"os"
 	"os/signal"
@@ -15,7 +18,20 @@ const channel_token = "G0k5a+PTDx8UU7s09xB3qD8viE7+AXGjrTJDBhiZ8Qs7j44nIKzlBgb0W
 
 func main() {
 
+	// 環境変数のセット
+	err := config.GetENV()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// dbとの接続
+	database.SetupDB()
+
 	http.HandleFunc("/callback", server.JudgeEvent)
+
+	// 以下はテスト用
+	http.HandleFunc("/hello", test.Sayhello)
+	http.HandleFunc("/insert_line_user", test.InsertLineUser)
 
 	s := http.Server{Addr: ":8080"}
 

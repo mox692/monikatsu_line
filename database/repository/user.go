@@ -2,7 +2,6 @@ package repository
 
 type User struct {
 	ID           string
-	LineID       string
 	UserName     string
 	UserPassword string
 }

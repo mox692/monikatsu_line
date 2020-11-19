@@ -13,7 +13,7 @@ type resister struct {
 	statusCode int
 }
 
-// userが投げたapnameがdb内に存在するかを
+// userが投げたapnameがDBに存在するか確認する関数です。
 func (r *resister) askAppName(message *linebot.TextMessage) error {
 
 	_, err := repository.SelectUserByUserName(message.Text)
@@ -44,16 +44,16 @@ func (r *resister) askAppName(message *linebot.TextMessage) error {
 	return nil
 }
 
-// password認証。認証されたらLineUserをinsert
+// userが投げたpasswordがDBにあルカ確認する関数。認証されたらLineUserをinsert
 func (r *resister) askPassword(message *linebot.TextMessage) error {
-	_, err := repository.SelectUserByPassword(message.Text)
+	user, err := repository.SelectUserByPassword(message.Text)
 
 	if err == sql.ErrNoRows {
 		err = r.resisterReply(constant.RESISTER_PASSWORD_NOTFOUND)
 		if err != nil {
 			return err
 		}
-		err = setContext(r.LineConn.event.Source.UserID, "0.0")
+		err = setContext(r.LineConn.event.Source.UserID, "0")
 		if err != nil {
 			return err
 		}
@@ -62,12 +62,13 @@ func (r *resister) askPassword(message *linebot.TextMessage) error {
 		return err
 	}
 
-	err = setContext(r.LineConn.event.Source.UserID, "0.0")
+	err = setContext(r.LineConn.event.Source.UserID, "0")
 	if err != nil {
 		return err
 	}
 
-	err = r.insertLineUser()
+	u := &repository.LineUser{UserID: user.ID, LineUserToken: r.LineConn.event.Source.UserID}
+	err = u.InsertLineUser()
 	if err != nil {
 		return err
 	}

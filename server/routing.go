@@ -86,14 +86,14 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 	}
 
 	// status毎に、その後の処理を切り分け
-	switch status.GetStatusCode[:0] {
+	switch status.Data[:0] {
 	// default
 	default:
 		c.defaultContact(message)
 	// 登録
 	case "1":
 		r := new(resister)
-		switch status.GetStatusCode[1:2] {
+		switch status.Data[1:2] {
 		case "1":
 			r.askAppName(message)
 		case "2":
@@ -101,7 +101,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		}
 	// モニカツ登録
 	case "2":
-		switch status.GetStatusCode[1:2] {
+		switch status.Data[1:2] {
 		case "1":
 			c.setWakeupTime(message)
 		case "2":
