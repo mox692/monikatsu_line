@@ -97,7 +97,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		case "1":
 			r.askAppName(message)
 		case "2":
-			r.askPassword()
+			r.askPassword(message)
 		}
 	// モニカツ登録
 	case "2":
