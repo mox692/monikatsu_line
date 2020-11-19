@@ -1,4 +1,4 @@
-package database
+package repository
 
 // 1:1 User
 type WakeupScore struct {

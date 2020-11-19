@@ -1,16 +1,15 @@
 package sessionClient
 
 import (
-	"monikatsuline/server"
 	"testing"
 )
 
 func Test_SetContext(t *testing.T) {
 
-	cases := map[string]server.SessionCode{
-		"etw":  server.MonikatsuFlag,
-		"teqw": server.MonikatsuSetWakeupTime,
-		"fds":  server.DefaultState,
+	cases := map[string]string{
+		"etw":  "2.1",
+		"teqw": "2.2",
+		"fds":  "0",
 	}
 
 	for key, value := range cases {
@@ -18,8 +17,30 @@ func Test_SetContext(t *testing.T) {
 		if err != nil {
 			t.Errorf("error occured: %v\n", err)
 		}
-		if status.SetStatusCode != "0" {
-			t.Errorf("setstatuscode  is not collect: want %s, got %s\n", "0", status.SetStatusCode)
+		if status.StatusCode != 200 {
+			t.Errorf("setstatuscode  is not collect: want %d, got %d\n", 200, status.StatusCode)
+		}
+	}
+
+	expect := map[string]string{
+		"etw":  "2.1",
+		"teqw": "2.2",
+		"fds":  "0",
+	}
+
+	for key, _ := range cases {
+		status, err := GetContext(key)
+
+		if err != nil {
+			t.Errorf("err occur: %s", err.Error())
+		}
+
+		if status.StatusCode != 200 {
+			t.Errorf("err happen: statuscode is %d, not %d\n", status.StatusCode, 200)
+		}
+
+		if status.Data != expect[key] {
+			t.Errorf("status.Data get %s, not %s\n", status.Data, expect[key])
 		}
 	}
 }

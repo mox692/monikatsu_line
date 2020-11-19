@@ -14,6 +14,7 @@ import (
 var serverAddr string = "localhost:9090"
 var opts []grpc.DialOption
 
+// SetContext はuserIDとsessioncodeを用いてセッションを登録します。
 func SetContext(userID string, sessionCode string) (*session.SetStatus, error) {
 	opts = append(opts, grpc.WithInsecure())
 	conn, err := grpc.Dial(serverAddr, opts...)

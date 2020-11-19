@@ -1,4 +1,4 @@
-package database
+package repository
 
 type WakeupData struct {
 	ID         string
