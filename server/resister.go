@@ -46,7 +46,7 @@ func (r *resister) askAppName(message *linebot.TextMessage) error {
 
 // userが投げたpasswordがDBにあルカ確認する関数。認証されたらLineUserをinsert
 func (r *resister) askPassword(message *linebot.TextMessage) error {
-	_, err := repository.SelectUserByPassword(message.Text)
+	user, err := repository.SelectUserByPassword(message.Text)
 
 	if err == sql.ErrNoRows {
 		err = r.resisterReply(constant.RESISTER_PASSWORD_NOTFOUND)
@@ -67,7 +67,8 @@ func (r *resister) askPassword(message *linebot.TextMessage) error {
 		return err
 	}
 
-	err = r.insertLineUser()
+	u := &repository.LineUser{UserID: user.ID, LineUserToken: r.LineConn.event.Source.UserID}
+	err = u.InsertLineUser()
 	if err != nil {
 		return err
 	}

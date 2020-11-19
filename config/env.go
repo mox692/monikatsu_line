@@ -7,7 +7,7 @@ import (
 )
 
 func GetENV() error {
-	err := godotenv.Load("../local.env")
+	err := godotenv.Load("./local.env")
 	if err != nil {
 		fmt.Printf("can't read .envfile")
 		return err
