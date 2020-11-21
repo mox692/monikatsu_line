@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// /insert_line_userへのアクセスで、LineUserのinsertをテストします。
 func InsertLineUser(w http.ResponseWriter, r *http.Request) {
 
 	// lineuserの作成

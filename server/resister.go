@@ -4,6 +4,9 @@ import (
 	"database/sql"
 	"monikatsuline/constant"
 	"monikatsuline/database/repository"
+	"monikatsuline/sessionClient"
+
+	"golang.org/x/xerrors"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 )
@@ -23,18 +26,19 @@ func (r *resister) askAppName(message *linebot.TextMessage) error {
 		if err != nil {
 			return err
 		}
-		err = setContext(r.LineConn.event.Source.UserID, "0.0")
+		status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "0")
 		if err != nil {
-			return err
+			return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 		}
+		return nil
 	}
 	if err != nil {
 		return err
 	}
 
-	err = setContext(r.LineConn.event.Source.UserID, "1.2")
+	status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "1.2")
 	if err != nil {
-		return err
+		return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 	}
 
 	r.resisterReply(constant.RESISTER_ASK_PASSWORD)
@@ -53,18 +57,18 @@ func (r *resister) askPassword(message *linebot.TextMessage) error {
 		if err != nil {
 			return err
 		}
-		err = setContext(r.LineConn.event.Source.UserID, "0")
+		status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "0")
 		if err != nil {
-			return err
+			return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 		}
 	}
 	if err != nil {
 		return err
 	}
 
-	err = setContext(r.LineConn.event.Source.UserID, "0")
+	status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "0")
 	if err != nil {
-		return err
+		return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 	}
 
 	u := &repository.LineUser{UserID: user.ID, LineUserToken: r.LineConn.event.Source.UserID}
