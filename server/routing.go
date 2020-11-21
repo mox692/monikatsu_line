@@ -1,10 +1,8 @@
 package server
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"regexp"
 
 	"monikatsuline/constant"
 	"monikatsuline/sessionClient"
@@ -92,6 +90,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		c.defaultContact(message)
 	// 登録
 	case "1":
+		// registerインスタンスを作成
 		r := new(resister)
 		switch status.Data[1:2] {
 		case "1":
@@ -101,9 +100,10 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		}
 	// モニカツ登録
 	case "2":
+		m := new(monikatsu)
 		switch status.Data[1:2] {
 		case "1":
-			c.setWakeupTime(message)
+			m.setWakeupTime(message)
 		case "2":
 		}
 	}
@@ -172,36 +172,6 @@ func (c *LineConn) initResister() error {
 	return nil
 }
 
-/* monikatu関連 */
-
-// setWakeupTime
-func (c *LineConn) setWakeupTime(message *linebot.TextMessage) {
-
-	// 入力メッセージをvalidate
-	time, err := parseInputTime(message.Text)
-	if err != nil {
-		resp := linebot.NewTextMessage(constant.MONIKATSU_WRONGTIME_INPUT)
-		_, err = c.bot.ReplyMessage(c.event.ReplyToken, resp).Do()
-		if err != nil {
-			log.Print(err)
-		}
-		return
-	}
-	fmt.Println(time)
-
-	// kvsマイクロサービスにセッションをinsert
-	err = setContext(c.event.Source.UserID, "2.2")
-	if err != nil {
-		log.Print(err)
-	}
-
-	resp := linebot.NewTextMessage(constant.MONIKATSU_WAKEUP_RESISTER(time))
-	_, err = c.bot.ReplyMessage(c.event.ReplyToken, resp).Do()
-	if err != nil {
-		log.Print(err)
-	}
-}
-
 // デモ関数。実際はここはgRPCのメソッドに挿しかわる。
 func GetContext(userid string) string {
 
@@ -211,12 +181,4 @@ func GetContext(userid string) string {
 // デモ関数。実際はここはgRPCのメソッドに挿しかわる。
 func setContext(userid, contextID string) error {
 	return nil
-}
-
-func parseInputTime(time string) (string, error) {
-	r, _ := regexp.Compile("^([0-9]|1[0-9]|2[0-3]|):[0-5][0-9]")
-	if !(r.Match([]byte(time))) {
-		return "", xerrors.New("parse err!")
-	}
-	return time, nil
 }
