@@ -105,7 +105,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		m := new(monikatsu)
 		switch status.Data[1:2] {
 		case "1":
-			c.setWakeupTime(message)
+			m.setWakeupTime(message)
 		case "2":
 		}
 	}
