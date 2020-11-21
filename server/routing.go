@@ -130,7 +130,6 @@ func (c *LineConn) defaultContact(message *linebot.TextMessage) error {
 		// ヘルプを表示。
 		c.helpMessage()
 	}
-
 	// リプライの分岐
 	return nil
 }
