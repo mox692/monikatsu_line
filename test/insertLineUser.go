@@ -3,8 +3,9 @@ package test
 import (
 	"fmt"
 	"log"
-	"monikatsuline/database/repository"
 	"net/http"
+
+	"github.com/mox692/monikatsu_line/database/repository"
 )
 
 // /insert_line_userへのアクセスで、LineUserのinsertをテストします。

@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"monikatsuline/constant"
-	"monikatsuline/sessionClient"
+	"github.com/mox692/monikatsu_line/constant"
+	"github.com/mox692/monikatsu_line/sessionClient"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 	"golang.org/x/xerrors"

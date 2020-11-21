@@ -3,14 +3,15 @@ package main
 import (
 	"context"
 	"log"
-	"monikatsuline/config"
-	"monikatsuline/database"
-	"monikatsuline/server"
-	"monikatsuline/test"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/mox692/monikatsu_line/config"
+	"github.com/mox692/monikatsu_line/database"
+	"github.com/mox692/monikatsu_line/server"
+	"github.com/mox692/monikatsu_line/test"
 )
 
 const channel_secret = "c8654b200557eb6744b21fc78f240d0a"

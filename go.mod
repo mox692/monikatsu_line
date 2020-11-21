@@ -1,4 +1,4 @@
-module monikatsuline
+module github.com/mox692/monikatsu_line
 
 go 1.15
 
