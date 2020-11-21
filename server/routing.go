@@ -92,6 +92,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		c.defaultContact(message)
 	// 登録
 	case "1":
+		// registerインスタンスを作成
 		r := new(resister)
 		switch status.Data[1:2] {
 		case "1":
@@ -101,6 +102,7 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		}
 	// モニカツ登録
 	case "2":
+		m := new(monikatsu)
 		switch status.Data[1:2] {
 		case "1":
 			c.setWakeupTime(message)
