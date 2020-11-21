@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"monikatsuline/session"
+	"github.com/mox692/monikatsu_line/session"
 
 	"google.golang.org/grpc"
 )

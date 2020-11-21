@@ -8,6 +8,8 @@ ENV GOBIN=/go/bin
 
 ENV GOPATH=
 
+ENV GOROOT=/usr/local/go
+
 COPY ./go.mod ./go.sum ./main.go ./
 
 RUN go mod download

@@ -2,9 +2,11 @@ package server
 
 import (
 	"database/sql"
-	"monikatsuline/constant"
-	"monikatsuline/database/repository"
-	"monikatsuline/sessionClient"
+
+	"github.com/mox692/monikatsu_line/constant"
+
+	"github.com/mox692/monikatsu_line/database/repository"
+	"github.com/mox692/monikatsu_line/sessionClient"
 
 	"golang.org/x/xerrors"
 

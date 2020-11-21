@@ -3,8 +3,9 @@ package server
 import (
 	"fmt"
 	"log"
-	"monikatsuline/constant"
 	"regexp"
+
+	"github.com/mox692/monikatsu_line/constant"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 	"golang.org/x/xerrors"

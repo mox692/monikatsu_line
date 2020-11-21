@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"monikatsuline/database"
+	"github.com/mox692/monikatsu_line/database"
 
 	"golang.org/x/xerrors"
 )
