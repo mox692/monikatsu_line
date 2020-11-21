@@ -17,7 +17,7 @@ type monikatsu struct {
 func (m *monikatsu) setWakeupTime(message *linebot.TextMessage) {
 
 	// 入力メッセージをvalidate
-	time, err := parseInputTime(message.Text)
+	time, err := m.parseInputTime(message.Text)
 	if err != nil {
 		resp := linebot.NewTextMessage(constant.MONIKATSU_WRONGTIME_INPUT)
 		_, err = m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
