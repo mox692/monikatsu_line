@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  monikat-server:
+    image: motoyukikimura/monikatsu-line:latest
+    container_name: monikatsu-line
+    # networks:
+    #   - microservices
+    ports:
+      - 127.0.0.1:8091:8080
