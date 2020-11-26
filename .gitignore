@@ -1,3 +1,4 @@
 secret.yaml
 .DS_Store
 env.prod
+deployment.yaml
