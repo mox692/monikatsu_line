@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/mox692/monikatsu_line/session"
@@ -11,25 +12,25 @@ import (
 	"google.golang.org/grpc"
 )
 
-var serverAddr string = "localhost:9090"
+var serverAddr string = os.Getenv("GRPC_SERVER_HOST") + ":" + os.Getenv("GRPC_SERVER_PORT")
 var opts []grpc.DialOption
 
 // SetContext はuserIDとsessioncodeを用いてセッションを登録します。
 func SetContext(userID string, sessionCode string) (*session.SetStatus, error) {
+	log.Println("called in SetContext")
 	opts = append(opts, grpc.WithInsecure())
 	conn, err := grpc.Dial(serverAddr, opts...)
 	if err != nil {
 		log.Fatal("err: %w", err)
 	}
-
+	log.Printf("conn success!!\n")
 	client := session.NewSessionClient(conn)
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	setStatus, err := client.SetSession(ctx, &session.SessionRequest{UserID: userID, StatusID: sessionCode})
 	if err != nil {
-		fmt.Printf("err : %s\n", err)
+		log.Printf("client.SetSession : %s\n", err)
 		return &session.SetStatus{}, err
 	}
-
 	fmt.Printf("request success!\n status: %+v\n", setStatus)
 	return setStatus, nil
 }

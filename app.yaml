@@ -1,2 +1,12 @@
-service: linebot
+service: default
+
 runtime: go113
+
+main: ./
+
+includes:
+  - secret.yaml
+
+handlers:
+  - url: /.*
+    script: auto

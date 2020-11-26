@@ -8,7 +8,6 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/mox692/monikatsu_line/config"
 	"github.com/mox692/monikatsu_line/database"
 	"github.com/mox692/monikatsu_line/server"
 	"github.com/mox692/monikatsu_line/test"
@@ -20,10 +19,10 @@ const channel_token = "G0k5a+PTDx8UU7s09xB3qD8viE7+AXGjrTJDBhiZ8Qs7j44nIKzlBgb0W
 func main() {
 
 	// 環境変数のセット
-	err := config.GetENV()
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err := config.GetENV()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// dbとの接続
 	database.SetupDB()
@@ -33,6 +32,8 @@ func main() {
 	// 以下はテスト用
 	http.HandleFunc("/hello", test.Sayhello)
 	http.HandleFunc("/insert_line_user", test.InsertLineUser)
+	http.HandleFunc("/setcontext", test.SetSessionTest)
+	http.HandleFunc("/getcontext", test.GetSessionTest)
 
 	s := http.Server{Addr: ":8080"}
 
