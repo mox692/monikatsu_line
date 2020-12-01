@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/mox692/monikatsu_line/database"
 	"github.com/mox692/monikatsu_line/server"
 	"github.com/mox692/monikatsu_line/test"
 )
@@ -24,7 +25,7 @@ func main() {
 	// }
 
 	// dbとの接続
-	// database.SetupDB()
+	database.SetupDB()
 
 	http.HandleFunc("/callback", server.JudgeEvent)
 

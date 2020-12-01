@@ -16,7 +16,7 @@ func (lu *LineUser) SelectLineUserByID(userID string) *LineUser {
 }
 
 func (lu *LineUser) InsertLineUser() error {
-	stmt, err := database.Conn.Prepare("INSERT INTO line_user (user_id, line_token) VALUES (?, ?);")
+	stmt, err := database.Conn.Prepare("INSERT INTO line_user (user_id, line_user_token) VALUES (?, ?);")
 	if err != nil {
 		return xerrors.Errorf("db.Conn.Prepare err : %w", err)
 	}
