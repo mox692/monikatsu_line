@@ -130,5 +130,5 @@ var _Session_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "session.proto",
+	Metadata: "session/session.proto",
 }

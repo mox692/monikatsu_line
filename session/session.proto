@@ -28,6 +28,10 @@ message GetStatus{
     string errMessage = 3;
 }
 
+message TestMessage{
+    string msg = 1;
+}
+
 
 
 
