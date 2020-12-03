@@ -8,6 +8,8 @@ service Session {
     rpc SetSession(SessionRequest) returns (SetStatus){}
 
     rpc GetSession(SessionRequest) returns(GetStatus){}
+
+    rpc ConnTest(TestMessage) returns(TestMessage){} 
 }
 
 
