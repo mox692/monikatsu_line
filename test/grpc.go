@@ -4,19 +4,19 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/mox692/monikatsu_line/session"
 	"google.golang.org/grpc"
 )
 
-var serverAddr string = os.Getenv("GRPC_SERVER_HOST") + ":" + os.Getenv("GRPC_SERVER_PORT")
+// var serverAddr string = os.Getenv("GRPC_SERVER_HOST") + ":" + os.Getenv("GRPC_SERVER_PORT")
+var serverAddr string = "35.221.73.47:50051"
 var opts []grpc.DialOption
 
 func ConnGRPC(w http.ResponseWriter, r *http.Request) {
 	log.Printf("gRPC addr: %s\n", serverAddr)
-	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*20)
 
 	opts = append(opts, grpc.WithInsecure())
 	conn, err := grpc.Dial(serverAddr, opts...)

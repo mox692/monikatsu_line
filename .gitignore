@@ -3,3 +3,4 @@ secret.yaml
 env.prod
 deployment.yaml
 secret.mk
+client_test
