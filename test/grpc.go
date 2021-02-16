@@ -11,7 +11,7 @@ import (
 )
 
 // var serverAddr string = os.Getenv("GRPC_SERVER_HOST") + ":" + os.Getenv("GRPC_SERVER_PORT")
-var serverAddr string = "35.221.73.47:50051"
+var serverAddr string = "localhost:50051"
 var opts []grpc.DialOption
 
 func ConnGRPC(w http.ResponseWriter, r *http.Request) {

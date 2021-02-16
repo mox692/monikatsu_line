@@ -8,8 +8,6 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/mox692/monikatsu_line/config"
-	"github.com/mox692/monikatsu_line/database"
 	"github.com/mox692/monikatsu_line/server"
 	"github.com/mox692/monikatsu_line/test"
 )
@@ -19,14 +17,14 @@ const channel_token = "G0k5a+PTDx8UU7s09xB3qD8viE7+AXGjrTJDBhiZ8Qs7j44nIKzlBgb0W
 
 func main() {
 
-	// 環境変数のセット
-	err := config.GetENV()
-	if err != nil {
-		log.Fatal(err)
-	}
+	// local環境だった場合の環境変数のセット
+	// err := config.GetENV()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	// dbとの接続
-	database.SetupDB()
+	// database.SetupDB()
 
 	http.HandleFunc("/callback", server.JudgeEvent)
 
