@@ -30,6 +30,7 @@ type LineConn struct {
 // SessionCode はsession codeを管理します。
 type SessionCode string
 
+// TODO: もっとマシな定数名にしたい
 var (
 	DefaultState           SessionCode = "0"
 	MonikatsuFlag          SessionCode = "2.1"
@@ -42,9 +43,12 @@ func Serve() {
 
 // JudgeEventはLINE MessagingAPIから渡されたイベントを判別します。
 // 後続処理はそれぞれのイベントの関数に移譲させます。
+// TODO: errハンドリングどうするか
 func JudgeEvent(w http.ResponseWriter, r *http.Request) {
 
-	bot, _ := linebot.New(channel_secret, channel_token)
+	bot, err := linebot.New(channel_secret, channel_token)
+	if err != nil {
+	}
 
 	events, err := bot.ParseRequest(r)
 	if err != nil {
@@ -83,12 +87,10 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		return xerrors.Errorf("sessionClient.GetContext err : %w", err)
 	}
 
-	// status毎に、その後の処理を切り分け
 	switch status.Data[:0] {
-	// default
 	default:
 		c.defaultContact(message)
-	// 登録
+	// 登録系
 	case "1":
 		// registerインスタンスを作成
 		r := new(resister)
@@ -97,6 +99,8 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 			r.askAppName(message)
 		case "2":
 			r.askPassword(message)
+		default:
+			r.unexpectedException()
 		}
 	// モニカツ登録
 	case "2":
@@ -105,6 +109,11 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		case "1":
 			m.setWakeupTime(message)
 		case "2":
+			m.confirmWakeupTime(message)
+		case "5":
+			m.checkWakeupTime(message)
+		default:
+			m.unexpectedException()
 		}
 	}
 	return nil

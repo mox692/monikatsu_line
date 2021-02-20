@@ -5,9 +5,10 @@ import (
 	"log"
 	"regexp"
 
-	"github.com/mox692/monikatsu_line/constant"
-
 	"github.com/line/line-bot-sdk-go/linebot"
+	"github.com/mox692/monikatsu_line/constant"
+	"github.com/mox692/monikatsu_line/database/repository"
+	"github.com/mox692/monikatsu_line/sessionClient"
 	"golang.org/x/xerrors"
 )
 
@@ -30,13 +31,64 @@ func (m *monikatsu) setWakeupTime(message *linebot.TextMessage) {
 	fmt.Println(time)
 
 	// kvsマイクロサービスにセッションをinsert
-	err = setContext(m.LineConn.event.Source.UserID, "2.2")
+	status, err := sessionClient.SetContext(m.LineConn.event.Source.UserID, "2.2")
+	if err != nil {
+		log.Print(err)
+	}
+	fmt.Printf("statusCode: %d", status.StatusCode)
+
+	// TODO: 時刻確認stepを入れるのであれば、useridと時刻を保存するRPCを追加して
+	//       ここで呼ぶようにする
+
+	resp := linebot.NewTextMessage(constant.MONIKATSU_WAKEUP_RESISTER(time))
+	_, err = m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
+	if err != nil {
+		log.Print(err)
+	}
+}
+
+func (m *monikatsu) confirmWakeupTime(message *linebot.TextMessage) {
+
+	if text := message.Text; text == "yes" || text == "YES" || text == "Yes" {
+		// TODO: sessionで日付のdataを保存する？？
+		wd := &repository.WakeupData{"userid", m.LineConn.event.Source.UserID, "2/4", "7:00"}
+		wd.Insert()
+		resp := linebot.NewTextMessage(constant.MONIKATSU_WAKEUP_CONFIRM)
+		_, err := m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
+		if err != nil {
+			log.Print(err)
+		}
+		err = setContext(m.LineConn.event.Source.UserID, "2.5")
+		if err != nil {
+			log.Print(err)
+		}
+	} else {
+		resp := linebot.NewTextMessage(constant.MONIKATSU_CANCEL)
+		_, err := m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
+		if err != nil {
+			log.Print(err)
+		}
+	}
+}
+
+func (m *monikatsu) checkWakeupTime(message *linebot.TextMessage) {
+	// TODO: userIDを引数にして、db or Redisからwakeuodateの値を取ってくる
+	wd := repository.CreateWakeupData()
+	wakeupData, err := wd.SelectByUserID(m.LineConn.event.Source.UserID)
 	if err != nil {
 		log.Print(err)
 	}
 
-	resp := linebot.NewTextMessage(constant.MONIKATSU_WAKEUP_RESISTER(time))
+	resp := linebot.NewTextMessage(constant.CHECK_WAKEUP_TIME(wakeupData.WakeupTime))
 	_, err = m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
+	if err != nil {
+		log.Print(err)
+	}
+}
+
+func (m *monikatsu) unexpectedException() {
+	resp := linebot.NewTextMessage(constant.UNEXPECTED_EXCEPTION)
+	_, err := m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
 	if err != nil {
 		log.Print(err)
 	}

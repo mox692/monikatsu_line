@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type SessionClient interface {
 	SetSession(ctx context.Context, in *SessionRequest, opts ...grpc.CallOption) (*SetStatus, error)
 	GetSession(ctx context.Context, in *SessionRequest, opts ...grpc.CallOption) (*GetStatus, error)
+	ConnTest(ctx context.Context, in *TestMessage, opts ...grpc.CallOption) (*TestMessage, error)
 }
 
 type sessionClient struct {
@@ -48,12 +49,22 @@ func (c *sessionClient) GetSession(ctx context.Context, in *SessionRequest, opts
 	return out, nil
 }
 
+func (c *sessionClient) ConnTest(ctx context.Context, in *TestMessage, opts ...grpc.CallOption) (*TestMessage, error) {
+	out := new(TestMessage)
+	err := c.cc.Invoke(ctx, "/session.Session/ConnTest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SessionServer is the server API for Session service.
 // All implementations must embed UnimplementedSessionServer
 // for forward compatibility
 type SessionServer interface {
 	SetSession(context.Context, *SessionRequest) (*SetStatus, error)
 	GetSession(context.Context, *SessionRequest) (*GetStatus, error)
+	ConnTest(context.Context, *TestMessage) (*TestMessage, error)
 	mustEmbedUnimplementedSessionServer()
 }
 
@@ -66,6 +77,9 @@ func (UnimplementedSessionServer) SetSession(context.Context, *SessionRequest) (
 }
 func (UnimplementedSessionServer) GetSession(context.Context, *SessionRequest) (*GetStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSession not implemented")
+}
+func (UnimplementedSessionServer) ConnTest(context.Context, *TestMessage) (*TestMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConnTest not implemented")
 }
 func (UnimplementedSessionServer) mustEmbedUnimplementedSessionServer() {}
 
@@ -116,6 +130,24 @@ func _Session_GetSession_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Session_ConnTest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TestMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SessionServer).ConnTest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/session.Session/ConnTest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SessionServer).ConnTest(ctx, req.(*TestMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Session_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "session.Session",
 	HandlerType: (*SessionServer)(nil),
@@ -128,7 +160,11 @@ var _Session_serviceDesc = grpc.ServiceDesc{
 			MethodName: "GetSession",
 			Handler:    _Session_GetSession_Handler,
 		},
+		{
+			MethodName: "ConnTest",
+			Handler:    _Session_ConnTest_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "session.proto",
+	Metadata: "session/session.proto",
 }

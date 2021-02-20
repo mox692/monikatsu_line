@@ -17,7 +17,7 @@ const channel_token = "G0k5a+PTDx8UU7s09xB3qD8viE7+AXGjrTJDBhiZ8Qs7j44nIKzlBgb0W
 
 func main() {
 
-	// 環境変数のセット
+	// local環境だった場合の環境変数のセット
 	// err := config.GetENV()
 	// if err != nil {
 	// 	log.Fatal(err)
@@ -31,6 +31,7 @@ func main() {
 	// 以下はテスト用
 	http.HandleFunc("/hello", test.Sayhello)
 	http.HandleFunc("/insert_line_user", test.InsertLineUser)
+	http.HandleFunc("/grpc_test", test.ConnGRPC)
 	http.HandleFunc("/setcontext", test.SetSessionTest)
 	http.HandleFunc("/getcontext", test.GetSessionTest)
 

@@ -2,3 +2,5 @@ secret.yaml
 .DS_Store
 env.prod
 deployment.yaml
+secret.mk
+client_test

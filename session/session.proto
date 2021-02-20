@@ -8,6 +8,8 @@ service Session {
     rpc SetSession(SessionRequest) returns (SetStatus){}
 
     rpc GetSession(SessionRequest) returns(GetStatus){}
+
+    rpc ConnTest(TestMessage) returns(TestMessage){} 
 }
 
 
@@ -26,6 +28,10 @@ message GetStatus{
     int32 statusCode = 1;
     string data = 2;
     string errMessage = 3;
+}
+
+message TestMessage{
+    string msg = 1;
 }
 
 
