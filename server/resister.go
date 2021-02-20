@@ -2,6 +2,7 @@ package server
 
 import (
 	"database/sql"
+	"log"
 
 	"github.com/mox692/monikatsu_line/constant"
 
@@ -93,6 +94,14 @@ func (r *resister) resisterReply(text string) error {
 		return err
 	}
 	return nil
+}
+
+func (r *resister) unexpectedException() {
+	resp := linebot.NewTextMessage(constant.UNEXPECTED_EXCEPTION)
+	_, err := r.LineConn.bot.ReplyMessage(r.LineConn.event.ReplyToken, resp).Do()
+	if err != nil {
+		log.Print(err)
+	}
 }
 
 func (r *resister) insertLineUser() error {

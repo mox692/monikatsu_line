@@ -99,6 +99,8 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 			r.askAppName(message)
 		case "2":
 			r.askPassword(message)
+		default:
+			r.unexpectedException()
 		}
 	// モニカツ登録
 	case "2":
@@ -107,7 +109,11 @@ func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 		case "1":
 			m.setWakeupTime(message)
 		case "2":
-
+			m.confirmWakeupTime(message)
+		case "5":
+			m.checkWakeupTime(message)
+		default:
+			m.unexpectedException()
 		}
 	}
 	return nil
@@ -154,7 +160,6 @@ func (c *LineConn) initMonikatsu() error {
 }
 
 func (c *LineConn) helpMessage() {
-	// TODO: おうむ返しを回避
 	resp := linebot.NewTextMessage(constant.HelpMessage)
 	_, err := c.bot.ReplyMessage(c.event.ReplyToken, resp).Do()
 	if err != nil {

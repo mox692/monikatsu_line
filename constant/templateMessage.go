@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	HelpMessage = ""
+	HelpMessage = "monikatu: [モニカツ]\n初回登録(β): [とうろく]"
 
 	RESISTER_INIT              = `了解！appで登録した名前を入力してくれ！`
 	RESISTER_USERNAME_NOTFOUND = `そのusernameは見つからないな。。`
@@ -26,4 +26,11 @@ var (
 
 	MONIKATSU_WRONGTIME_INPUT    = `入力された時刻が正しくないな。。。`
 	MONIKATSU_CONFIRM_WAKEUPTIME = `入力された時刻が正しくないな。。。`
+	MONIKATSU_WAKEUP_CONFIRM     = `登録完了！頑張って明日起きてね！`
+	MONIKATSU_CANCEL             = `やめるんかーい`
+	CHECK_WAKEUP_TIME            = func(times string) string {
+		return fmt.Sprintf("明日の%s時に起きるために早く寝ろーい", times)
+	}
+
+	UNEXPECTED_EXCEPTION = `サーバーエラーが発生しました`
 )
