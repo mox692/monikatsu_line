@@ -3,6 +3,7 @@ package repository
 type User struct {
 	ID           string
 	UserName     string
+	UserLineID   string
 	UserPassword string
 }
 

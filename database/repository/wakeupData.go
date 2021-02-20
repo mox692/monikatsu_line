@@ -12,6 +12,8 @@ type WakeupData struct {
 	UserID     string
 	WakeupDay  string
 	WakeupTime string
+	CreatedAt  string
+	UpdatedAt  string
 }
 
 func CreateWakeupData() *WakeupData {
