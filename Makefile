@@ -70,6 +70,14 @@ create_cluster:
 
 
 ####################################
+# imageのbuildとdockerhubへのpush
+####################################
+.PHONY: build 
+deployment:
+	docker build -t motoyukikimura/monikatsu-server .
+	docker push motoyukikimura/monikatsu-server
+
+####################################
 # GKEへのdeployとserviceのデプロイ
 ####################################
 .PHONY: deployment

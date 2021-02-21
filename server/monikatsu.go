@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"regexp"
+	"time"
 
 	"github.com/line/line-bot-sdk-go/linebot"
 	"github.com/mox692/monikatsu_line/constant"
@@ -51,7 +52,8 @@ func (m *monikatsu) confirmWakeupTime(message *linebot.TextMessage) {
 
 	if text := message.Text; text == "yes" || text == "YES" || text == "Yes" {
 		// TODO: sessionで日付のdataを保存する？？
-		wd := &repository.WakeupData{"userid", m.LineConn.event.Source.UserID, "2/4", "7:00"}
+		t := time.Now()
+		wd := &repository.WakeupData{"userid", m.LineConn.event.Source.UserID, "2/4", "7:00", timeToMonikatsuTime(t), timeToMonikatsuTime(t)}
 		wd.Insert()
 		resp := linebot.NewTextMessage(constant.MONIKATSU_WAKEUP_CONFIRM)
 		_, err := m.LineConn.bot.ReplyMessage(m.LineConn.event.ReplyToken, resp).Do()
@@ -100,4 +102,8 @@ func (m *monikatsu) parseInputTime(time string) (string, error) {
 		return "", xerrors.New("parse err!")
 	}
 	return time, nil
+}
+
+func timeToMonikatsuTime(t time.Time) string {
+	return fmt.Sprintf("%s-%s-%s %s:%s", t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute())
 }

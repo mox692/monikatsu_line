@@ -21,11 +21,11 @@ USE `monikatsu` ;
 -- Table `monikatsu`.`line_user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `monikatsu`.`line_user` (
-  `user_id` INT NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
   `line_user_token` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`user_id`, `line_user_token`),
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `line_user_token_UNIQUE` (`line_user_token` ASC) VISIBLE)
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) ,
+  UNIQUE INDEX `line_user_token_UNIQUE` (`line_user_token` ASC) )
 ENGINE = InnoDB;
 
 
@@ -33,13 +33,13 @@ ENGINE = InnoDB;
 -- Table `monikatsu`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `monikatsu`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` VARCHAR(45) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,
-  `user_line_id` VARCHAR(45) NULL,
+  `user_line_id` VARCHAR(45) NOT NULL,
   `user_password` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`, `user_name`, `user_line_id`, `user_password`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `user_password_UNIQUE` (`user_password` ASC) VISIBLE)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `user_password_UNIQUE` (`user_password` ASC) )
 ENGINE = InnoDB;
 
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `monikatsu`.`wakeup_data` (
   `created_at` VARCHAR(45) NOT NULL,
   `updated_at` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
 ENGINE = InnoDB;
 
 
@@ -62,7 +62,7 @@ ENGINE = InnoDB;
 -- Table `monikatsu`.`wakeup_score`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `monikatsu`.`wakeup_score` (
-  `user_id` INT NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
   `score` VARCHAR(45) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`))
 ENGINE = InnoDB;
