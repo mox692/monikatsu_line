@@ -3,10 +3,11 @@ kind: Ingress
 metadata:
   name: monikatsu-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: monikatsu
+    kubernetes.io/ingress.global-static-ip-name: monikatsu-static-ip
+    networking.gke.io/managed-certificates: monikatsu-certificate2
 spec:
   rules:
-  - host: monikatsu.com
+  - host: test-monikatsu-v1.tk
     http:
       paths:
       - path: /
