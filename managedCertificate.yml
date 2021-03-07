@@ -4,4 +4,4 @@ metadata:
   name: monikatsu-certificate2 # ManagedCertificateリソース名を指定
 spec:
   domains:
-    - test-monikatsu-v1.tk
+    - test-monikatsu-2.tk

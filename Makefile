@@ -1,5 +1,9 @@
 include secret.mk
 
+ENV_LOCAL_FILE := env.local
+ENV_LOCAL = $(shell cat $(ENV_LOCAL_FILE))
+
+
 ####################################
 # cloudSQLの作成
 ####################################
@@ -101,3 +105,31 @@ delete_cluster:
 conn-test:
 	curl -X ${CLUSTER_LB_IP}/hello
 	curl -X ${CLUSTER_LB_IP}/insert_line_user
+
+
+####################################
+# localの起動色々
+####################################
+.PHONY: up-db
+up-db:
+	$(ENV_LOCAL) docker-compose -f docker/docker-compose.dev.db.yml -p local up -d
+
+.PHONY: down-db
+down-db:
+	docker-compose -f docker/docker-compose.dev.db.yml -p local down
+
+.PHONY: up-redis
+up-redis:
+	docker-compose -f docker/docker-compose.dev.redis.yml -p local up -d
+
+.PHONY: down-redis
+down-redis:
+	docker-compose -f docker/docker-compose.dev.redis.yml -p local down
+
+.PHONY: up-app
+up-app:
+	$(ENV_LOCAL) docker-compose -f docker/docker-compose.dev.app.yml -p local up
+
+.PHONY: down-app
+down-app:
+	$(ENV_LOCAL) docker-compose -f docker/docker-compose.dev.app.yml -p local down

@@ -2,15 +2,14 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: monikatsu-ingress
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: monikatsu-static-ip
-    networking.gke.io/managed-certificates: monikatsu-certificate2
+#   annotations:
+    # kubernetes.io/ingress.global-static-ip-name: monikatsu-static-ip
+    # networking.gke.io/managed-certificates: monikatsu-certificate2
 spec:
   rules:
-  - host: test-monikatsu-v1.tk
-    http:
+  - http:
       paths:
-      - path: /
+      - path: /*
         backend:
           serviceName: monikatsu-service
           servicePort: 80
