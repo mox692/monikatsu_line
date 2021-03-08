@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  monikatsu-dev-app-server:
+    image: "motoyukikimura/session_grpc_server"
+    container_name: monikatsu-dev-session-server
+    networks:
+      - monikatsu-network
+    ports:
+      - 127.0.0.1:50051:${GRPC_SERVER_PORT}
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+networks:
+  monikatsu-network:
+    driver: bridge
