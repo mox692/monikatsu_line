@@ -2,10 +2,11 @@ package grpc_session
 
 import (
 	"context"
-	"session/config"
-	"session/kvs"
-	"session/session"
 	"testing"
+
+	"github.com/mox692/monikatsu_line/session/grpc/server/config"
+	"github.com/mox692/monikatsu_line/session/grpc/server/kvs"
+	"github.com/mox692/monikatsu_line/session/grpc/server/session"
 )
 
 func Test_SetSessionAndGetSession(t *testing.T) {

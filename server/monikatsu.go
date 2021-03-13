@@ -9,7 +9,7 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 	"github.com/mox692/monikatsu_line/constant"
 	"github.com/mox692/monikatsu_line/database/repository"
-	"github.com/mox692/monikatsu_line/sessionClient"
+	"github.com/mox692/monikatsu_line/session/grpc/grpcClient"
 	"golang.org/x/xerrors"
 )
 
@@ -32,7 +32,7 @@ func (m *monikatsu) setWakeupTime(message *linebot.TextMessage) {
 	fmt.Println(time)
 
 	// kvsマイクロサービスにセッションをinsert
-	status, err := sessionClient.SetContext(m.LineConn.event.Source.UserID, "2.2")
+	status, err := grpcClient.SetContext(m.LineConn.event.Source.UserID, "2.2")
 	if err != nil {
 		log.Print(err)
 	}

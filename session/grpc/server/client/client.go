@@ -6,9 +6,9 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"session/session"
 	"time"
 
+	"github.com/mox692/monikatsu_line/session/grpc/server/session"
 	"google.golang.org/grpc"
 )
 

@@ -2,8 +2,9 @@ package kvs
 
 import (
 	"fmt"
-	"session/config"
 	"testing"
+
+	"github.com/mox692/monikatsu_line/session/grpc/server/config"
 )
 
 func TestRunRedis(t *testing.T) {

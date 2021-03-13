@@ -7,7 +7,7 @@ import (
 	"github.com/mox692/monikatsu_line/constant"
 
 	"github.com/mox692/monikatsu_line/database/repository"
-	"github.com/mox692/monikatsu_line/sessionClient"
+	"github.com/mox692/monikatsu_line/session/grpc/grpcClient"
 
 	"golang.org/x/xerrors"
 
@@ -29,7 +29,7 @@ func (r *resister) askAppName(message *linebot.TextMessage) error {
 		if err != nil {
 			return err
 		}
-		status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "0")
+		status, err := grpcClient.SetContext(r.LineConn.event.Source.UserID, "0")
 		if err != nil {
 			return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 		}
@@ -39,7 +39,7 @@ func (r *resister) askAppName(message *linebot.TextMessage) error {
 		return err
 	}
 
-	status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "1.2")
+	status, err := grpcClient.SetContext(r.LineConn.event.Source.UserID, "1.2")
 	if err != nil {
 		return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 	}
@@ -60,7 +60,7 @@ func (r *resister) askPassword(message *linebot.TextMessage) error {
 		if err != nil {
 			return err
 		}
-		status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "0")
+		status, err := grpcClient.SetContext(r.LineConn.event.Source.UserID, "0")
 		if err != nil {
 			return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 		}
@@ -69,7 +69,7 @@ func (r *resister) askPassword(message *linebot.TextMessage) error {
 		return err
 	}
 
-	status, err := sessionClient.SetContext(r.LineConn.event.Source.UserID, "0")
+	status, err := grpcClient.SetContext(r.LineConn.event.Source.UserID, "0")
 	if err != nil {
 		return xerrors.Errorf("Err. message: %s, : %w", status.ErrMessage, err)
 	}

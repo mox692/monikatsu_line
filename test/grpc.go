@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mox692/monikatsu_line/session"
+	"github.com/mox692/monikatsu_line/session/grpc/server/session"
 	"google.golang.org/grpc"
 )
 

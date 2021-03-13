@@ -1,4 +1,4 @@
-package sessionClient
+package grpcClient
 
 import (
 	"testing"

@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/mox692/monikatsu_line/constant"
-
 	"github.com/line/line-bot-sdk-go/linebot"
+	"github.com/mox692/monikatsu_line/constant"
+	"github.com/mox692/monikatsu_line/session/grpc/grpcClient"
 	"golang.org/x/xerrors"
 )
 
@@ -81,7 +81,7 @@ func JudgeEvent(w http.ResponseWriter, r *http.Request) {
 func (c *LineConn) judgeContext(message *linebot.TextMessage) error {
 
 	// kvsマイクロサービスにアクセスし、セッションを確認
-	status, err := sessionClient.GetContext(c.event.Source.UserID)
+	status, err := grpcClient.GetContext(c.event.Source.UserID)
 	if err != nil {
 		return xerrors.Errorf("sessionClient.GetContext err : %w", err)
 	}
