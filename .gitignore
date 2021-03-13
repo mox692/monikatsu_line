@@ -5,3 +5,5 @@ deployment.yaml
 secret.mk
 client_test
 front/node_modules
+front/dst
+front/public/bundle*
