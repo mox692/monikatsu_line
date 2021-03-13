@@ -8,8 +8,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/mox692/monikatsu_line/session/grpc/server/kvs"
 	"github.com/mox692/monikatsu_line/session/grpc/server/session"
+	"github.com/mox692/monikatsu_line/session/kvs"
 
 	"github.com/gomodule/redigo/redis"
 	"golang.org/x/xerrors"
