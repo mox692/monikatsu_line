@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/mox692/monikatsu_line/session"
@@ -12,7 +13,7 @@ import (
 )
 
 // var serverAddr string = os.Getenv("SERVER_HOST") + os.Getenv("SERVER_PORT")
-var serverAddr string = "localhost:50051"
+var serverAddr string = os.Getenv("GRPC_SERVER_HOST_CONTAINER") + os.Getenv("GRPC_SERVER_PORT")
 var opts []grpc.DialOption
 
 // SetContext はuserIDとsessioncodeを用いてセッションを登録します。

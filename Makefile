@@ -132,7 +132,7 @@ up-app:
 
 .PHONY: down-app
 down-app:
-	$(ENV_LOCAL) docker-compose -f docker/docker-compose.dev.app.yml -p local down
+	docker-compose -f docker/docker-compose.dev.app.yml -p local down
 
 .PHONY: up-session
 up-session:
@@ -140,4 +140,4 @@ up-session:
 
 .PHONY: down-session
 down-session:
-	$(ENV_LOCAL) docker-compose -f docker/docker-compose.dev.session.yml -p local down
+	docker-compose -f docker/docker-compose.dev.session.yml -p local down
