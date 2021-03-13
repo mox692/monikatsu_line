@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: monikatsu-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: monikatsu-pod
   ports:

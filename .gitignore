@@ -4,3 +4,4 @@ env.prod
 deployment.yaml
 secret.mk
 client_test
+front/node_modules

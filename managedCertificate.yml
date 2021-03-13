@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: monikatsu-certificate2 # ManagedCertificateリソース名を指定
+spec:
+  domains:
+    - test-monikatsu-2.tk

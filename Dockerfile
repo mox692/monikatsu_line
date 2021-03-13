@@ -28,6 +28,6 @@ WORKDIR /myapp
 EXPOSE 8080
 
 # envfileもalpineコンテナに入れておく。
-COPY --from=builder /go-api /go/src/github.com/mox692/monikatsu_line/env.prod ./ 
+COPY --from=builder /go-api ./ 
 
 CMD [ "./go-api" ]

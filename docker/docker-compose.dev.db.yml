@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  monikatsu-mysql:
+    image: mysql:5.7
+    container_name: monikatsu-mysql-local
+    ports:
+      - "127.0.0.1:3306:3306" #localなのでポートを空けているが、本番では空けないように注意
+    volumes:
+      - monikatsu-mysql-data:/var/lib/mysql
+      - ../database/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ../database/init:/docker-entrypoint-initdb.d
+    networks:
+      - monikatsu-network
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_NAME=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+volumes:
+  monikatsu-mysql-data:
+networks:
+  monikatsu-network:
+    driver: bridge
