@@ -19,13 +19,9 @@ func main(){
 	s := http.Server{Addr: serverPort}
 
 	// TODO: redisとの疎通
+	kvs.RunRedis()
 
-	// 以下はテスト用
-	// http.HandleFunc("/hello", test.Sayhello)
-	// http.HandleFunc("/insert_line_user", test.InsertLineUser)
-	// http.HandleFunc("/grpc_test", test.ConnGRPC)
-	// http.HandleFunc("/setcontext", test.SetSessionTest)
-	// http.HandleFunc("/getcontext", test.GetSessionTest)
+
 	http.HandleFunc("/setcontext", setSession)
 	http.HandleFunc("/getcontext", getSession)
 
