@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "monikatsu-project",
+  "private_key_id": "e503fbd3087de2152bc2d51711d703f49caed9a3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCmVPDizB3nEhhK\nlr1qrpiMRUTGrRryC4cdCzr5vJ2jqatOKPXHcNRMnzuRUkeupsiPZNJOoFSC+2tx\naE85rkZvxbncSObO9aJi7jZHohTrABvObK6i/1WVk/T0l+LYWBuR1YFos6G5x5n5\nsKsmasQqj8zSfskBs9wVmjRvLyDHysy06ulI/YN6dA6yciwfWcacKZQ0t0TYyTTJ\nf1cTNyB8/uayJByp+/Z9V/EdpLRI/5uaPwWedeW0oNSkZTRFVFl2SD6OQRI6Zbkl\n4eJeNDue41sWPU7cGNySVh+JHXuQa1Hg7uA5Rpgi3CKUenVBboV0wUqrUhwr4GWk\nWvKk+QbpAgMBAAECggEABTBAdLgB9XOhYa+YEwbakq2VJU7AY20r9sz4jFJvkcEO\nK0RTKQ3XoYLqEcYWSa1sM4TlRoyby5uE0NHR1C51MLFjSIAsVae15rjK5VXPVJFO\nohQj0nPSkKA/6OKqsdhLFokpc0Gp5Civdel75+6MAKPhs23ps+2PX6EizOu/GFxU\nlUPOg4mN5AGU6HprIKZuc0lrRB6580blT5JzYSulFzUGpPELSyW4dF5Pb7Cgm289\nq2Ukyq3tsYUZlOxO/nQUQQ2ol1/aavMh0hcrAGPhHb5ZfUcRwpeYL0gf6MhhW/vj\nl+oykltzZMr0JV+H25szIiQqvgnivtoAaWl5HSdkAQKBgQDV0IXNW1Olp0YWJ2hQ\nWT+6XqF0ZuPfvEhpNd4LjmMwdKoZhIXkQmSM60YN1QUgcM4J8khcC84KOBYwetSR\nXS0cBAON8XcfGseHCWfUQeoRquJSNSk/uZgscIS+zsgGyXX3joufGcRNKB/qLQ2w\nahXZY3u6Ddi72Cfbd96upisNgQKBgQDHJiFuqJKwLFJhTnj7Ul3IEfhW4HwwOX2s\nq9QEUFBrZZvSe8FWTyvE+R35vZMkoz4pboJOQ8yrGAMtfRpvYtJ1R56ahvG2qjbK\nEFTaHUPBetqaemh0m9efHfsNt0Abx9h6nMwMQDCNfBcOqdWNeZaGFPL5Js7jwwj7\n82XI3Pj9aQKBgCeIH0UBrqyBCedMr++zIKI/ntBbuaQDNswlBoHSeKpb15tSMkMq\nt1aKpXAnQ4Rk9uNF5XUHRbgD+K5L94NM2+tDHrkevOyGUf+4kHbhHPrZQnD6nT7H\n/Meyogh5SOhgVSxJMa1f4Th2w7fTTqWgZ5vC1fxnVPweEfh06DoYRPuBAoGAdhEP\nJRHf1X6RYIsrgqR0YRb2SltQhS6waVx9mAkdhG57ETC5kLfjVSX0NYnE4KW/RsTz\nj/72KkFUMPXIZF0MNOe/ChIS357OWMGR7LYI4344d/k2UFvMW9Nkcd9ArLewihDH\nkEPGBTuaV+EscHGzYc6ttjTh13pbqzPEFm+bVnECgYACYxBo/ItOXJXo/W46Q2oS\nRvWvwfHgctX37fYeGmXbc+n7B1OHDPk9BbM/ivIe10C2pPhBRbT+6ud7RQ6CPigW\ninL/yktE/sek991jsGK62YLDPHz+p83ynp2kUvzEKzaf5/QYjS87D/gvZ16I6SmD\nJ10OL2CYaq46Bm2esOYPfg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "gcr-service-account-152@monikatsu-project.iam.gserviceaccount.com",
+  "client_id": "101708806051624983850",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gcr-service-account-152%40monikatsu-project.iam.gserviceaccount.com"
+}

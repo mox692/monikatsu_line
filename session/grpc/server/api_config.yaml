@@ -1,0 +1,9 @@
+type: google.api.Service
+config_version: 3
+
+name: session-manage.endpoints.monikatsu-project.cloud.goog
+
+# API title to appear in the user interface (Google Cloud Console).
+title: session gRPC API
+apis:
+  - name: session.Session
